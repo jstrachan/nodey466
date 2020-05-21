@@ -1,0 +1,28 @@
+apiVersion: tekton.dev/v1alpha1
+kind: Pipeline
+metadata:
+  creationTimestamp: null
+  labels:
+    branch: master
+    build: "1"
+    jenkins.io/pipelineType: build
+    owner: myowner
+    repository: myrepo
+  name: myowner-myrepo-master-xww7w-1
+  namespace: jx
+spec:
+  params:
+  - default: 0.0.1
+    description: the version number for this pipeline which is used as a tag on docker
+      images and helm charts
+    name: version
+    type: string
+  tasks:
+  - name: from-build-pack
+    params:
+    - name: version
+      value: $(params.version)
+    resources: {}
+    taskRef:
+      name: myowner-myrepo-master-xww7w-from-build-pack-1
+status: {}
